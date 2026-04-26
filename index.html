@@ -44,6 +44,38 @@
             padding: 0 24px;
         }
 
+        /* Language Switcher */
+        .lang-switcher {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            display: flex;
+            gap: 8px;
+            z-index: 100;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 8px 16px;
+            font-size: 13px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .lang-btn:hover {
+            border-color: var(--text-secondary);
+            color: var(--text-secondary);
+        }
+
+        .lang-btn.active {
+            border-color: var(--text-primary);
+            color: var(--text-primary);
+        }
+
         /* Header */
         header {
             min-height: 100vh;
@@ -86,14 +118,6 @@
             font-size: 14px;
             color: var(--text-muted);
             margin-bottom: 40px;
-        }
-
-        .tagline {
-            font-size: 16px;
-            color: var(--text-secondary);
-            max-width: 500px;
-            margin: 0 auto;
-            line-height: 1.8;
         }
 
         .scroll-indicator {
@@ -159,13 +183,6 @@
             font-size: 14px;
             color: var(--text-muted);
             white-space: nowrap;
-        }
-
-        .experience-desc {
-            font-size: 15px;
-            color: var(--text-secondary);
-            margin-top: 12px;
-            line-height: 1.7;
         }
 
         /* Education */
@@ -328,6 +345,23 @@
             color: var(--text-primary);
         }
 
+        /* Hide/Show languages */
+        [data-lang] {
+            display: none;
+        }
+
+        [data-lang].active {
+            display: block;
+        }
+
+        .lang-group {
+            display: none;
+        }
+
+        .lang-group.active {
+            display: block;
+        }
+
         /* Responsive */
         @media (max-width: 600px) {
             .name {
@@ -349,26 +383,65 @@
             section {
                 padding: 60px 0;
             }
+
+            .lang-switcher {
+                top: 16px;
+                right: 16px;
+                gap: 4px;
+            }
+
+            .lang-btn {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
         }
     </style>
 </head>
 <body>
 
+    <div class="lang-switcher">
+        <button class="lang-btn active" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" onclick="setLang('es')">ES</button>
+        <button class="lang-btn" onclick="setLang('no')">NO</button>
+    </div>
+
     <header>
         <div class="container">
             <div class="header-content">
                 <img src="logo.png" alt="Martine Gunnarsdottir" class="photo-placeholder">
-                <h1 class="name">Martine Søvik Gunnarsdottir</h1>
-                <p class="title">Radiologist</p>
-                <p class="location">Valencia, Spain</p>
-                            </div>
+
+                <!-- English -->
+                <div class="lang-group active" data-lang="en">
+                    <h1 class="name">Martine Søvik Gunnarsdottir</h1>
+                    <p class="title">Radiologist</p>
+                    <p class="location">Valencia, Spain</p>
+                </div>
+
+                <!-- Spanish -->
+                <div class="lang-group" data-lang="es">
+                    <h1 class="name">Martine Søvik Gunnarsdottir</h1>
+                    <p class="title">Radióloga</p>
+                    <p class="location">Valencia, España</p>
+                </div>
+
+                <!-- Norwegian -->
+                <div class="lang-group" data-lang="no">
+                    <h1 class="name">Martine Søvik Gunnarsdottir</h1>
+                    <p class="title">Radiolog</p>
+                    <p class="location">Valencia, Spania</p>
+                </div>
+            </div>
         </div>
         <div class="scroll-indicator">Scroll</div>
     </header>
 
     <main class="container">
+
+        <!-- EXPERIENCE -->
         <section id="experience">
-            <h2 class="section-title">Experience</h2>
+            <h2 class="section-title" data-lang="en">Experience</h2>
+            <h2 class="section-title" data-lang="es">Experiencia</h2>
+            <h2 class="section-title" data-lang="no">Erfaring</h2>
 
             <div class="experience-item">
                 <div class="experience-header">
@@ -388,7 +461,8 @@
                     </div>
                     <div class="experience-date">Sep 2020 — Sep 2024</div>
                 </div>
-                
+            </div>
+
             <div class="experience-item">
                 <div class="experience-header">
                     <div>
@@ -410,8 +484,11 @@
             </div>
         </section>
 
+        <!-- EDUCATION -->
         <section id="education">
-            <h2 class="section-title">Education</h2>
+            <h2 class="section-title" data-lang="en">Education</h2>
+            <h2 class="section-title" data-lang="es">Educación</h2>
+            <h2 class="section-title" data-lang="no">Utdanning</h2>
 
             <div class="education-item">
                 <div class="education-degree">ConcentraMIR Sede Valencia</div>
@@ -427,8 +504,11 @@
             </div>
         </section>
 
+        <!-- CERTIFICATIONS -->
         <section id="certifications">
-            <h2 class="section-title">Licenses & Certifications</h2>
+            <h2 class="section-title" data-lang="en">Licenses & Certifications</h2>
+            <h2 class="section-title" data-lang="es">Licencias y Certificaciones</h2>
+            <h2 class="section-title" data-lang="no">Lisenser og Sertifiseringer</h2>
 
             <div class="cert-grid">
                 <div class="cert-item">
@@ -446,29 +526,53 @@
             </div>
         </section>
 
+        <!-- LANGUAGES -->
         <section id="languages">
-            <h2 class="section-title">Languages</h2>
+            <h2 class="section-title" data-lang="en">Languages</h2>
+            <h2 class="section-title" data-lang="es">Idiomas</h2>
+            <h2 class="section-title" data-lang="no">Språk</h2>
 
             <div class="lang-grid">
                 <div class="lang-item">
                     <div class="lang-name">Norwegian</div>
-                    <div class="lang-level">Native</div>
+                    <div class="lang-level" data-lang="en">Native</div>
+                    <div class="lang-level" data-lang="es">Nativo</div>
+                    <div class="lang-level" data-lang="no">Morsmål</div>
                 </div>
                 <div class="lang-item">
                     <div class="lang-name">Spanish</div>
-                    <div class="lang-level">Professional</div>
+                    <div class="lang-level" data-lang="en">Professional</div>
+                    <div class="lang-level" data-lang="es">Profesional</div>
+                    <div class="lang-level" data-lang="no">Profesjonell</div>
                 </div>
                 <div class="lang-item">
                     <div class="lang-name">English</div>
-                    <div class="lang-level">Professional</div>
+                    <div class="lang-level" data-lang="en">Professional</div>
+                    <div class="lang-level" data-lang="es">Profesional</div>
+                    <div class="lang-level" data-lang="no">Profesjonell</div>
                 </div>
             </div>
         </section>
 
+        <!-- CONTACT -->
         <section id="contact">
-            <h2 class="section-title">Contact</h2>
-            <h3 class="contact-title">Get in Touch</h3>
-            <p class="contact-subtitle">Open to professional inquiries and collaborations</p>
+            <h2 class="section-title" data-lang="en">Contact</h2>
+            <h2 class="section-title" data-lang="es">Contacto</h2>
+            <h2 class="section-title" data-lang="no">Kontakt</h2>
+
+            <div data-lang="en">
+                <h3 class="contact-title">Get in Touch</h3>
+                <p class="contact-subtitle">Open to professional inquiries and collaborations</p>
+            </div>
+            <div data-lang="es">
+                <h3 class="contact-title">Contacto</h3>
+                <p class="contact-subtitle">Abierta a consultas profesionales y colaboraciones</p>
+            </div>
+            <div data-lang="no">
+                <h3 class="contact-title">Ta Kontakt</h3>
+                <p class="contact-subtitle">Åpen for profesjonelle henvendelser og samarbeid</p>
+            </div>
+
             <a href="https://www.linkedin.com/in/martinegunnarsdottir" target="_blank" class="contact-email">linkedin.com/in/martinegunnarsdottir</a>
         </section>
     </main>
@@ -480,6 +584,33 @@
             </p>
         </div>
     </footer>
+
+    <script>
+        function setLang(lang) {
+            // Update buttons
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
+
+            // Update all elements with data-lang attribute
+            document.querySelectorAll('[data-lang]').forEach(el => {
+                el.classList.remove('active');
+                if (el.getAttribute('data-lang') === lang) {
+                    el.classList.add('active');
+                }
+            });
+
+            // Update lang-group elements
+            document.querySelectorAll('.lang-group').forEach(el => {
+                el.classList.remove('active');
+                if (el.getAttribute('data-lang') === lang) {
+                    el.classList.add('active');
+                }
+            });
+
+            // Update HTML lang attribute
+            document.documentElement.setAttribute('lang', lang);
+        }
+    </script>
 
 </body>
 </html>
